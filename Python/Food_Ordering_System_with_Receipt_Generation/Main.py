@@ -77,18 +77,18 @@ def generate_pdf(menu, order):
 
 # Main function to handle user interaction and order process
 def main():
-    userinput = ''
-    print('Welcome to Fastest foods! What would you like to have?')
-    show_menu(Menu)  # Display the menu
+    print('Welcome to Fastest Foods! What would you like to have?')
+    show_menu(Menu)
     
-    while userinput.lower() != 'done':  # Loop until the user types 'done'
-        userinput = input('What would you like to have? (Type "done" when finished): ').title()
-        if userinput.lower() != 'done':
-            add_to_order(userinput)  # Add the item to the order
-            show_order(order)  # Display the current order
+    while True:
+        user_input = input('What would you like to have? (Type "done" when finished): ').title()
+        if user_input.lower() == 'done':
+            break
+        add_to_order(user_input)
+        show_order(order)
     
     print(f'Thank you for your order! Your total is {order_total(order)}')
-    generate_pdf(Menu, order)  # Generate the PDF receipt
+    generate_pdf(Menu, order)
 
 # Run the main function if this script is executed
 if __name__ == '__main__':
