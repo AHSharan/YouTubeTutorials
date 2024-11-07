@@ -18,14 +18,14 @@ def show_menu(menu):
     except Exception as e:
         print(f"Error displaying menu: {e}")
 
-def add_to_order(item):
+def add_to_order(item,quantity=1):
     """Add an item to the order if it exists in the menu."""
     try:
         if item in menu:  # Check if the item is in the menu
             if item in order:
-                order[item] += 1  # Increment the quantity if the item is already in the order
+                order[item] += quantity  # Increment the quantity if the item is already in the order
             else:
-                order[item] = 1  # Add the item to the order with quantity 1
+                order[item] = quantity  # Add the item to the order with quantity 1
         else:
             print('Enter valid item')  # Print error message if the item is not in the menu
     except Exception as e:
@@ -96,12 +96,18 @@ def main():
     try:
         print('Welcome to Fastest Foods! What would you like to have?')
         show_menu(menu)
-        
+       
         while True:
             user_input = input('What would you like to have? (Type "done" when finished): ').title()
             if user_input.lower() == 'done':
                 break
-            add_to_order(user_input)
+            if user_input in menu.keys():
+                quantity = int(input(f"How many {user_input} do you want? "))
+            
+            try:
+                add_to_order(user_input,quantity)
+            except NameError as e:
+                pass
             show_order(order)
         
         print(f'Thank you for your order! Your total is {order_total(order)}')
